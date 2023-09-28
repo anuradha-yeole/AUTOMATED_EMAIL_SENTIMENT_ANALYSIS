@@ -1,0 +1,16 @@
+function bringEmails() {
+  var ws=SpreadsheetApp.getActiveSpreadsheet()
+  var ss=ws.getSheetByName("mails")
+  ss.getRange(2,1,ss.getLastRow()-1,ss.getLastColumn()).clearContent()
+  var emails=GmailApp.getInboxThreads()
+  emails.forEach(email=>{
+    var messageThread=email.getMessages()
+    var msgTxt=messageThread[0].getPlainBody()
+    var messageDate=messageThread[0].getDate()
+    var mssgsubject=messageThread[0].getSubject()
+    var mssgsender=messageThread[0].getFrom()
+    ss.appendRow([msgTxt,messageDate,mssgsubject,mssgsender])
+  })
+  
+    
+}
